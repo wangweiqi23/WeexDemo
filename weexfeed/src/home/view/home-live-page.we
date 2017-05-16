@@ -1,0 +1,209 @@
+<!-- 暂时屏蔽 下拉刷新控件 -->
+<template>
+  <list class="list" page-count="2" refresh-type="swipe">
+    <refresh  class = "refresh-view" display="{{refresh_display}}" onrefresh="onrefresh">
+      <text class="text-indicator" if="{{(refresh_display==='hide')}}"> ↓ 下拉刷新 </text>
+      <loading-indicator class="indicator"></loading-indicator>
+    </refresh>
+    <header>
+      <banner-view banners="{{banners}}"></banner-view>
+      <page-ad if="{{(adItems != null)}}" items="{{adItems}}"></page-ad>
+      <div class="row"></div>
+    </header>
+    <cell class="cell" repeat="{{item in channelList}}">
+      <channel-item class="item-left" channel="{{item.left}}" index="{{index}}"></channel-item>
+      <channel-item class="item-right" if="{{(item.right != null)}}" channel="{{item.right}}" index="{{index}}"></channel-item>
+    </cell>
+    <!-- <footer>
+      <text class="text_footer">到底啦</text>
+    </footer> -->
+    <loading class="loading-view" display="{{loading_display}}" onloading="onloading">
+      <text class="text-indicator" if="{{(loading_display==='hide')}}"> ↑ 上拉加载 </text>
+      <loading-indicator class="indicator"></loading-indicator>
+    </loading>
+  </list>
+</template>
+
+<script>
+  var modal = require('@weex-module/modal');
+  var apis = require('../../common/api');
+  module.exports = {
+    data: {
+      refresh_display: 'hide',
+      loading_display: '',
+      title:'',
+      flag:'',
+      index: 0,
+      banners:[],
+      channelList:[],
+      adItems: [],
+      testCount: 0
+    },
+    ready: function() {
+      this.onrefresh();
+    },
+    methods: {
+      onrefresh: function(e) {
+        var self = this;
+        self.refresh_display = 'show';
+
+        //请求channelList数据
+        apis.getMostHotLive(this.$getConfig().endPointCdn, self.flag, function (ret) {
+          self.refresh_display = 'hide';
+          self.loading_display = 'hide';
+          if(typeof(ret) != "undefined" && ret != null && ret.result == 1){
+            console.log("request channellist successed count:"+ret.data.length+" result:"+ret.result+" message:"+ret.message);
+            self.channelList = new Array();
+            var lenght =parseInt(ret.data.length/2);
+            for(var i=0;i<lenght;i++) {
+              var channelItem = {};
+              channelItem.left = ret.data[i*2];
+              channelItem.right = ret.data[i*2+1];
+              self.channelList[i] = channelItem;
+            }
+            if(Math.round(ret.data.length%2) == 1){
+              var channelItem = {};
+              channelItem.left = ret.data[ret.data.length-1];
+              channelItem.right = null;
+              self.channelList[lenght] = channelItem;
+            }
+          }else{
+            console.log("request failed");
+          }
+        });
+
+        //请求bannerList数据
+        apis.getBannerList(this.$getConfig().endPointCdn, function (ret) {
+          if(typeof(ret) != "undefined" && ret != null && ret.result == 1){
+            self.banners = ret.data;
+          }else{
+            console.log("request failed");
+          }
+        });
+
+        //请求page ad数据
+        apis.getHomePageOperation(this.$getConfig().endPointCdn, function (ret) {
+          if(typeof(ret) != "undefined" && ret != null && ret.result == 1){
+            self.adItems = ret.data;
+          }else{
+            console.log("request failed");
+          }
+        });
+      },
+      onloading: function() {
+        var self = this;
+        self.loading_display = 'show';
+
+        //请求channelList数据
+        apis.getMostHotLive(this.$getConfig().endPointCdn, self.flag, function (ret) {
+          
+          if(typeof(ret) != "undefined" && ret != null && ret.result == 1){
+            
+            console.log("loadmore channellist successed count:"+ret.data.length+" result:"+ret.result+" message:"+ret.message+" length:"+self.channelList.length);
+
+            self.testCount++;
+            if(self.testCount < 5){
+              self.loading_display = 'hide';
+            }else{
+              self.loading_display = 'end';
+            }
+
+            var start = self.channelList.length;
+            var lenght =parseInt(ret.data.length/2);
+            var newList = new Array();
+            for(var i=0;i<start;i++) {
+              newList[i] = self.channelList[i];
+            }
+            
+            for(var i=0;i<lenght;i++) {
+              var channelItem = {};
+              channelItem.left = ret.data[i*2];
+              channelItem.right = ret.data[i*2+1];
+              var index = start+i;
+              newList[index] = channelItem;
+            }
+            if(Math.round(ret.data.length%2) == 1){
+              var channelItem = {};
+              channelItem.left = ret.data[ret.data.length-1];
+              channelItem.right = null;
+              var end = start+lenght;
+              newList[end] = channelItem;
+            }
+            self.channelList = newList;
+
+            console.log("loadmore end Listlength:"+self.channelList.length+" newLength:"+newList.length+" testCount:"+self.testCount);
+          }else{
+            console.log("loadmore failed");
+            self.loading_display = 'error';
+          }
+        });
+        // self.loading_display = 'hide';
+      }
+    }
+  };
+</script>
+
+<style>
+  .refresh-view {
+    width: 750;
+    height: 130;
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: #1da2ff;
+  }
+  .row {
+    height:0;
+    background-color:#eeeeee;
+  }
+  .cell {
+    width: 750;
+  }
+  .item-left {
+    justify-content: center;
+    width: 373;
+    height: 373;
+  }
+  .item-right {
+    position: absolute;
+    top:0;
+    right:0;
+    justify-content: center;
+    width: 373;
+    height: 373;
+  }
+  .loading-view {
+    width: 750;
+    height: 130;
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: #dddddd;
+  }
+  .indicator {
+    height: 60;
+    width: 60;
+    color: #889967;
+  }
+  .text_footer {
+    width: 750;
+    height: 100;
+    padding: 30;
+    color: #888888;
+    font-size: 28;
+    text-align: center;
+  }
+  .text-indicator {
+    color: #3381e3;
+    font-size: 30;
+    padding: 5;
+  }
+</style>

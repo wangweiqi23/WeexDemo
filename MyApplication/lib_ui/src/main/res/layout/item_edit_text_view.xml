@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="242dp"
+        android:background="@drawable/bg_item_edit_text_view"
+        android:padding="0.5dp"
+        android:layout_centerVertical="true"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/item_0"
+            style="@style/Item_Edit_Text_View"/>
+
+        <TextView
+            android:id="@+id/item_1"
+            style="@style/Item_Edit_Text_View"/>
+
+
+        <TextView
+            android:id="@+id/item_2"
+            style="@style/Item_Edit_Text_View"/>
+
+
+        <TextView
+            android:id="@+id/item_3"
+            style="@style/Item_Edit_Text_View"/>
+
+
+        <TextView
+            android:id="@+id/item_4"
+            style="@style/Item_Edit_Text_View"/>
+
+
+        <TextView
+            android:id="@+id/item_5"
+            style="@style/Item_Edit_Text_View"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/transparent"/>
+
+</RelativeLayout>

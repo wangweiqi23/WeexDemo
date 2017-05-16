@@ -1,0 +1,50 @@
+<!-- 首页运营位 -->
+<template>
+  <div class="root">
+      <div class="item" repeat="{{item in items}}" url="{{item.and_link_url}}" onclick="onItemClick">
+        <image class="image" src="{{item.img_url}}" quality="normal"></image>
+        <text class="title">{{item.name}}</text>
+      </div>
+    </div>
+</template>
+
+<script>
+  var event = require('@weex-module/event');
+  module.exports = {
+    data: {
+      items:[]
+    },
+    methods: {
+      onItemClick: function(e) {
+        console.log("mothod onItemClick and_link_url:"+e.target.attr.url);
+        event.openSpecifiedPage(e.target.attr.url,null);
+      }
+    }
+  };
+</script>
+
+<style>
+  .root {
+    flex-direction:row;
+  }
+
+  .item {
+    align-items:center;
+    padding: 10;
+    flex: 1;
+  }
+
+  .image {
+    justify-content: center;
+    width: 80;
+    height: 80;
+  }
+
+  .title {
+    justify-content: center;
+    font-size: 22;
+    color: #333333;
+    padding-top: 10;
+  }
+
+</style>

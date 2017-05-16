@@ -1,0 +1,39 @@
+<template>
+  <title>跳转</title>
+</template>
+
+<script>
+  require('weex-components');
+  var modal = require('@weex-module/modal');
+  var apis = require('./common/api');
+  module.exports = {
+    data: {
+	baseURL: ''
+	},
+    ready: function () {
+	  console.log("ready height:"+this.ctHeight);
+	  this.toast();
+	  this.goFeedback();
+    },
+    created: function () {
+      var bundleUrl = this.$getConfig().bundleUrl;
+      this.baseURL = apis.getBaseUrl(bundleUrl,true);
+	  console.log("weexfeed created bundleUrl:"+ bundleUrl +" baseURL:"+this.baseURL)
+    },
+    methods: {
+      goFeedback: function () {
+         //如果pc调试，加载这个页面渲染
+         //this.$openURL('http://localhost:8888/index.html?page=./dist/modules/feedback.js');
+         //如果app调试，打开这个页面渲染
+         //this.$openURL('http://localhost:8888/dist/modules/feedback.js');
+		 
+		 var url =  this.baseURL + 'home/home-live.js?title=' + '首页';
+		 this.$openURL(url);
+      },
+      toast: function() {
+        console.log('toast', "testToast");
+		    modal.toast({'message': '测试 toast!', 'duration': 1});
+      }
+	}
+  }
+</script>

@@ -1,0 +1,27 @@
+<resources>
+
+    <style name="mySelect" parent="@android:style/Animation.Dialog">
+        <item name="@android:windowEnterAnimation">@anim/activity_totop</item>
+        //进入时的动画
+        <item name="@android:windowExitAnimation">@anim/activity_tobottom</item>
+        //退出时的动画
+    </style>
+
+    <style name="SlideBackActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/swipeback_activity_open_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/swipeback_activity_open_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/swipeback_activity_close_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/swipeback_activity_close_exit</item>
+    </style>
+
+    <style name="Item_Edit_Text_View">
+        <item name="android:textSize">17dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:background">@drawable/bg_item_edit_text_view</item>
+        <item name="android:maxLength">1</item>
+        <item name="android:gravity">center</item>
+    </style>
+</resources>

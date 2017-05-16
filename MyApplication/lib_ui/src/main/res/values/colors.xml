@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tab_text_normal">#212121</color>
+
+    <color name="home_orange">#FF6827</color>
+    <color name="colorAccent">#52b8f8</color>
+    <color name="side_bar_text">#52b8f8</color>
+    <color name="blue_95">#f252b8f8</color>
+
+    <color name="toast_normal">@color/white</color>
+
+    <color name="haitun_blue_gray">#99b2c4</color>
+
+    <color name="black_70">#B2333333</color>
+    <color name="red">#ccff0000</color>
+
+    <color name="province_line_border">#D0D0D0</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
+
+    <color name="ksw_md_ripple_normal">#1E000000</color>
+    <color name="ksw_md_ripple_checked">#33019285</color>
+
+    <color name="ksw_md_solid_shadow">#33000000</color>
+
+    <color name="ksw_md_solid_normal">#ECECEC</color>
+    <color name="ksw_md_solid_checked">#019285</color>
+    <color name="ksw_md_solid_disable">#FFFFFF</color>
+    <color name="ksw_md_solid_checked_disable">#aaaaaa</color>
+    <color name="gift_gold">#ffd700</color>
+
+    <color name="kprogresshud_default_color">#60000000</color>
+    <color name="kprogresshud_grey_color">#449E9E9E</color>
+
+    <color name="grey_light">#E5FFFFFF</color>
+    <color name="black_light">#FF333333</color>
+
+    <color name="blur_placeholder">#808080</color>
+
+    <color name="pickerview_timebtn_nor">#057dff</color>
+    <color name="pickerview_timebtn_pre">#c2daf5</color>
+    <color name="pickerview_bg_topbar">#f5f5f5</color>
+    <color name="pickerview_topbar_title">#000000</color>
+    <color name="pickerview_wheelview_textcolor_out">#a8a8a8</color>
+    <color name="pickerview_wheelview_textcolor_center">#2a2a2a</color>
+    <color name="pickerview_wheelview_textcolor_divider">#d5d5d5</color>
+    <!--覆盖颜色-->
+    <color name="bgColor_overlay">#60000000</color>
+</resources>

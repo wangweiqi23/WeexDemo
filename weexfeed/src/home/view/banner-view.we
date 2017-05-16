@@ -1,0 +1,52 @@
+<!-- 首页运营banner -->
+<template>
+  <div class="wrap">
+    <slider class="slider" interval="{{intervalValue}}" auto-play="{{isAutoPlay}}">
+      <indicator class="indicator" ></indicator>
+      <div repeat="{{item in banners}}" url="{{item.url}}" onclick="goNext" >
+        <image class="iamge" src="{{item.img_url}}" resize="stretch"></image>
+      </div>
+    </slider>
+  </div>
+</template>
+
+<style>
+  .slider {
+    width: 750;
+    height: 210;
+  }
+  .iamge {
+    width: 750; height: 210;
+    align-items: center;
+  }
+  .indicator {
+    position: absolute;
+    bottom: 20;
+    right: 0;
+    width: 100;
+    height: 12;
+    item-color: #dddddd;
+    item-selectedColor: #ffffff;
+    item-size: 12;
+  }
+</style>
+
+<script>
+  var event = require('@weex-module/event');
+  var base64 = require('../../common/base64');
+  module.exports = {
+    data: {
+      intervalValue:"5000",
+      isAutoPlay:"true",
+      banners: []
+    },
+    ready: function() {
+    },
+    methods: {
+      goNext: function (e) {
+      	var params = '{"destClass":"h5","segueParams":{"url":"'+e.target.attr.url+'","isShowTitle":false}}';
+        event.openSpecifiedPage('emlive://haitunlive.com/first?params='+encodeURI(base64.encode(params)),null);
+      }
+    }
+  }
+</script>

@@ -1,0 +1,134 @@
+<!-- 首页标题栏 -->
+<template>
+  <div class="root">
+    <div class="page">
+      <text class="title-left" style="color:{{leftTextColor}};" index="{{pages[0].index}}" onclick="onItemClick">{{pages[0].title}}</text>
+      <text class="title-middle" style="color:{{middleTextColor}};" index="{{pages[1].index}}" onclick="onItemClick">{{pages[1].title}}</text>
+      <text class="title-right" style="color:{{rightTextColor}};" index="{{pages[2].index}}" onclick="onItemClick">{{pages[2].title}}</text>
+    </div>
+    <div id="block" class="indicator">
+      <div class="image"></div>
+    </div>
+  </div>
+</template>
+
+<script>
+  var animation = require('@weex-module/animation');
+  module.exports = {
+    data: {
+      pages: [],
+      img_data: '',
+      current_index: 0,
+      leftTextColor: '#3381e3',
+      middleTextColor: '#999999',
+      rightTextColor: '#999999'
+    },
+    ready: function() {
+      console.log("page ready height:"+this.titleHeight);
+    },
+    methods: {
+      channelChange: function (index) {
+        if(this.current_index != index){
+          this.animIndicator(index);
+          this.changeTextColor(index);
+          this.current_index = index;
+          console.log("page channelChange index:"+index);
+        }
+      },
+      onItemClick: function(e) {
+        var indexValue = e.target.attr.index;
+        console.log("page onItemClick index:"+indexValue+" current_index:"+this.current_index);
+        if(this.current_index != indexValue){
+          this.animIndicator(indexValue);
+          this.$dispatch('pageItemClick', {index: indexValue});
+          this.changeTextColor(indexValue);
+          this.current_index = indexValue;
+        }
+      },
+      changeTextColor: function(index) {
+        switch(index){
+          case 0:
+            this.leftTextColor = '#1da2ff';
+            this.middleTextColor = '#999999';
+            this.rightTextColor = '#999999';
+            break;
+          case 1:
+            this.leftTextColor = '#999999';
+            this.middleTextColor = '#1da2ff';
+            this.rightTextColor = '#999999';
+            break;
+          case 2:
+            this.leftTextColor = '#999999';
+            this.middleTextColor = '#999999';
+            this.rightTextColor = '#1da2ff';
+            break;
+        }
+      },
+      animIndicator: function(index) {
+        var translate = '';
+        switch(index){
+          case 0:
+              translate = 'translateX(0)';
+            break;
+          case 1:
+              translate = 'translateX(100%)';
+            break;
+          case 2:
+              translate = 'translateX(200%)';
+            break;
+        }
+
+        var block = this.$el('block');
+        animation.transition(block, {
+        styles: {
+          transform: translate,
+          transformOrigin: 'center center'
+        },
+        duration: 200, //ms
+        timingFunction: 'linear',
+        delay: 0 //ms
+        }, function () {
+          console.log("page animIndicator finished index:"+index);
+        });
+      }
+    }
+  };
+</script>
+
+<style>
+  .page {
+    height: 40;
+    flex-direction: row;
+  }
+  .indicator {
+    position: absolute;
+    bottom: 10;
+    width: 250;
+    height: 5;
+    align-items:center;
+    transform-origin: 'center center';
+  }
+  .image {
+    width: 70;
+    height: 5;
+    border-radius: 5;
+    -moz-border-radius: 5;
+    background-color:#1da2ff;
+    justify-content:center;
+  }
+  .title-left {
+    width: 250;
+    text-align:center;
+    font-size: 32;
+  }
+  .title-middle {
+    width: 250;
+    text-align:center;
+    font-size: 32;
+  }
+  .title-right {
+    width: 250;
+    text-align:center;
+    font-size: 32;
+  }
+</style>

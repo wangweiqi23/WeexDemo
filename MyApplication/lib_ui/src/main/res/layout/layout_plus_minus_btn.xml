@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="164dp"
+                android:layout_height="29dp"
+    >
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textSize="14sp"
+        tools:text="100秒"/>
+
+    <ImageView
+        android:id="@+id/minus_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/content"
+        android:src="@drawable/btn_minus"/>
+
+    <ImageView
+        android:id="@+id/plus_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/content"
+        android:src="@drawable/btn_plus"/>
+</RelativeLayout>

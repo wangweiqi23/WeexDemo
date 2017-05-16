@@ -1,0 +1,153 @@
+<template>
+    <div class="wrap" style="width:750;height:{{sHeight}};background-color:#f6f6f6">
+        <div class="div_content">
+         <textarea class="textarea" rows="6" type="text" placeholder="请输入内容" textAlign="left" value="{{contentValue}}" oninput="contentInput"></textarea>
+    	   <image class="img_camera" onclick="onSelectPhoto" quality="high" src="{{img}}"></image>
+        </div>
+  		<input class="input_phone" type="text" placeholder="您的联系方式（选填)" value="{{phoneValue}}" oninput="phoneInput"></input>
+
+        <text class="text_title">您的联系方式有助于我们沟通和解决问题，仅工作人员可见</text>
+  	    <wxc-button class="btn_submit" type="success" size="middle" value="提交反馈" onclick="onSubmit"></wxc-button>
+  	    <a href="tel:021-24099034">
+  	     <text class="text_phone">客服电话 021-24099034</text>
+  	    </a>
+  	    <text class="text_date">工作时间： 9:00-11:30  13:00-18:00</text>
+    </div>
+</template>
+
+<style>
+  .div_content {
+    width: 750;
+    height: 300;
+    background-color: #ffffff;
+  }
+  .textarea {
+    width: 630;
+    height: 300;
+    padding: 20;
+	text-align:left;
+    font-size: 26;
+	border:none;
+	outline:none;
+	resize: none;
+  }
+  .img_camera {
+    position: absolute;
+    width: 100;
+    height: 100;
+    right: 30;
+	top: 30;
+  }
+  .input_phone {
+    width: 750;
+    padding-top: 20;
+	padding-bottom: 20;
+	padding-left: 20;
+	padding-right: 20;
+    margin-top: 25;
+    font-size: 26;
+    background-color: #ffffff;
+	border:none;
+	outline:none;
+  }
+  .text_title {
+    color: #333;
+    font-size: 20;
+	margin-top: 20;
+	margin-left: 20;
+  }
+  .btn_submit {
+    width: 710;
+	line-height: 80;
+	margin: 20;
+	font-size: 28;
+	border-radius: 5;
+	color: #fff;
+	text-align: center;
+	background-color: #1da2ff;
+  }
+  .text_phone {
+	margin-top: 20;
+	margin-left: 20;
+    color: #333;
+    font-size: 20;
+  }
+  .text_date {
+	margin-top: 20;
+	margin-left: 20;
+    color: #333;
+    font-size: 20;
+  }
+</style>
+
+<script>
+    require('weex-components');
+	var modal = require('@weex-module/modal');
+	var event = require('@weex-module/event');
+  var apis = require('../common/api');
+	var globalEvent = require('@weex-module/globalEvent');
+
+  module.exports = {
+    data: {
+	  sHeight:'',
+	  contentValue: '',
+	  phoneValue: '',
+      //img: '//gw.alicdn.com/tps/i2/TB1DpsmMpXXXXabaXXX20ySQVXX-512-512.png_400x400.jpg'
+	  img:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFUAAABYCAYAAACEa7uEAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyFpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChXaW5kb3dzKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5NzFBMjhGRDY0NjYxMUU2QjQ1NTg0NUUyOTIwRkQ5MiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5NzFBMjhGRTY0NjYxMUU2QjQ1NTg0NUUyOTIwRkQ5MiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjk3MUEyOEZCNjQ2NjExRTZCNDU1ODQ1RTI5MjBGRDkyIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjk3MUEyOEZDNjQ2NjExRTZCNDU1ODQ1RTI5MjBGRDkyIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+MS+fpgAACddJREFUeNrsnXlTFDkY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'
+    },
+    created: function () {
+	   console.log("feedback created")
+	   var self = this;
+  	 globalEvent.addEventListener("callbackScreenShot", function (ret) {
+  	   console.log("get callbackScreenShot code:"+ret.code+" data:"+ret.data)
+      if(ret.code == 1){
+           self.img = ret.data;
+      }
+  	 });
+    },
+	ready: function(){
+			var config = this.$getConfig();
+	        var screenHeight = this.$getConfig().env.deviceHeight;
+			this.sHeight = 750 / config.env.deviceWidth * config.env.deviceHeight;
+			console.log("feedback ready height:"+this.sHeight+"  screenHeight:"+screenHeight+" endPointCdn:"+config.endPointCdn)
+	},
+    destroyed: function () {
+	  console.log("feedback destroyed")
+  	  globalEvent.removeEventListener("callbackScreenShot");
+    },
+    methods: {
+      contentInput: function(e) {
+        this.contentValue = e.value
+      },
+      phoneInput: function(e) {
+        this.phoneValue = e.value
+      },
+      onSelectPhoto: function(e) {
+		    var json = '{"uploadurl":"https://lvbqas.eastmoney.com:8101/LVBPages/Identify/Upload","autoCamera":"false","callback":callbackScreenShot}';
+		    console.log("mothod onSelectPhoto json:"+json)
+		    event.uploadPhoto(json,function(ret){
+		      console.log("callback ret:"+ret.code);
+		    });
+      },
+      onSubmit: function(e) {
+	  
+          var self = this;
+          var body ='{"palt":"android","osversion":"6.0","model":"Nexus 5","content":"'+this.contentValue+'","contact":"'+this.phoneValue+'"}';
+		      // var body = "plat=android&osversion=6.0&model=Nexus 5&content="+self.contentValue+"&contact="+self.phoneValue;
+
+          console.log("mothod onSubmit body:"+body);
+
+          //请求数据
+          apis.postFeedback(this.$getConfig().endPointCdn, body, function (ret) {
+		   		if(ret.ok){
+				    modal.toast({'message': '网络正常 返回信息:'+ret.data.message, 'duration': 1});
+					console.log("request successed count:"+ret.data.count+" result:"+ret.data.result+" message:"+ret.data.message);
+		        }else{
+					modal.toast({'message': '网络异常', 'duration': 1});
+		            console.log("request failed");
+		        }
+           });
+      }
+	}
+  }
+</script>

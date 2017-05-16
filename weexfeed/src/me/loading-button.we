@@ -1,0 +1,100 @@
+<template>
+
+    <div class="btn">
+      <progresswheel class="loading-wheel" width="30" height="30" barwidth="3" barcolor="blue" if={{loadingWheelShown}}></progresswheel>
+
+      <text class="btn-loading-text" if={{loadingTextShown}} value="{{loadingbuttontext}}"></text>
+
+      <text class="btn-text" if={{textShown}} value="{{buttontext}}"></text>
+    </div>
+
+</template>
+
+<style>
+
+  .btn {
+    justify-content: center;
+    flex-direction: row; 
+    align-items: center;
+    margin-right: 24;
+    border-width: 2;
+    border-color: #1da2ff;
+    border-radius: 30;
+    background-color: white;
+  }
+
+  .btn-text {
+    color: #1da2ff;
+    font-size: 28;
+    text-align: center;
+  }
+
+  .btn-loading-text {
+    color: #1da2ff;
+    font-size: 28;
+    text-align: center;
+    margin-left: 10;
+  }
+
+  .loading-wheel {
+    width : 30;
+    height : 30;
+  }
+
+</style>
+
+<script>
+  require('weex-components');
+
+  module.exports = {
+    data: {
+      buttontext: 'test',
+      loadingbuttontext: 'ing',
+
+      loadingTextShown: false,
+      loadingWheelShown: false,
+      textShown: true,
+
+    },
+
+    created: function () {
+      // console.log("pay created");
+    },
+
+    ready: function(){
+        // console.log("pay ready height:"+this.sHeight+"  screenHeight:"+screenHeight);
+    },
+
+    destroyed: function () {
+      // console.log("pay destroyed")
+    },
+
+    methods: {
+      showLoadingText: function() {
+        this.loadingTextShown = true;
+      },
+
+      hideLoadingText: function() {
+        this.loadingTextShown = false;
+      },
+
+      showLoadingWheel: function() {
+        this.loadingWheelShown = true;
+      },
+
+      hideLoadingWheel: function() {
+        this.loadingWheelShown = false;
+      },
+
+      showButtonText: function() {
+        this.textShown = true;
+      },
+
+      hideButtonText: function() {
+        this.textShown = false;
+      },
+
+    }
+  }
+</script>
+

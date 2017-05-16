@@ -1,0 +1,146 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath files('license/license-gradle-plugin-0.12.1.jar')
+        classpath files('license/maven-license-plugin-1.10.b1.jar')
+        classpath files('license/plexus-utils-3.0.24.jar')
+        classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.5.0'
+    }
+}
+
+
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.hierynomus.license'
+
+ext.disableCov = project.hasProperty('disableCov') ? project.getProperty('disableCov') : 'false'
+
+if(!disableCov.toBoolean()){
+    apply plugin: 'com.vanniktech.android.junit.jacoco'
+    junitJacoco {
+        excludes = ['com/taobao/weex/dom/flex/**','com/taobao/weex/ui/view/refresh/circlebar/**']
+    }
+}
+
+version = "0.9.4"
+
+android {
+    compileSdkVersion parent.ext.compileSdkVersion
+    buildToolsVersion parent.ext.buildToolsVersion
+    resourcePrefix "weex"
+
+    useLibrary 'org.apache.http.legacy'
+
+    def jsfmVersion = "0.15.2"
+    try{
+        def line
+        new File("assets/main.js").withReader { line = it.readLine() }
+        def m = line =~ /[A-Z\s]+\:\s+([0-9\.]+)\s+Build\s+[0-9]+/;
+        jsfmVersion = m[0][1]
+        println jsfmVersion
+    } catch (java.lang.Exception e) {
+
+    }
+
+    defaultConfig {
+        buildConfigField "String", "buildJavascriptFrameworkVersion", "\"${jsfmVersion}\""
+        buildConfigField "String", "buildVersion", "\"${version}\""
+        minSdkVersion parent.ext.minSdkVersion
+        targetSdkVersion parent.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters "armeabi","x86"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
+    sourceSets {
+        main {
+            assets.srcDirs = ['assets']
+            jniLibs.srcDir(['libs'])
+            java {
+                srcDirs = ["src/main/java"];
+            }
+        }
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+
+    compileOptions.encoding = "UTF-8"
+    lintOptions {
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    testOptions {
+        unitTests.all {
+            maxHeapSize = "1024m"
+            jvmArgs += ['-XX:-UseSplitVerifier', '-noverify','-Xverify:none']/* fix VerifyError  */
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':lib_ui')
+    compile parent.ext.libV7
+    compile parent.ext.libSupportV4
+    compile parent.ext.libRecyclerview
+    compile parent.ext.libFastjson
+
+}
+
+license{
+    header=file('license/LICENSE')
+    excludes (["**/WXDataStructureUtil.java",
+               "**/Spacing.java",
+               "**/MeasureOutput.java",
+               "**/LayoutEngine.java",
+               "**/FloatUtil.java",
+               "**/CSSWrap.java",
+               "**/CSSStyle.java",
+               "**/CSSPositionType.java",
+               "**/CSSNode.java",
+               "**/CSSLayoutContext.java",
+               "**/CSSLayout.java",
+               "**/CSSJustify.java",
+               "**/CSSFlexDirection.java",
+               "**/CSSDirection.java",
+               "**/CSSConstants.java",
+               "**/CSSAlign.java",
+               "**/CachedCSSLayout.java",
+               "**/CSSAlignConvert.java",
+               "**/CSSFlexDirectionConvert.java",
+               "**/CSSJustifyConvert.java",
+               "**/CSSPositionTypeConvert.java",
+               "**/CSSTransformFromStyle.java",
+               "**/CSSWrapConvert.java",
+               "**/WXTextDomObject.java",
+               "**/WXCustomStyleSpan.java"])
+}
+preBuild.dependsOn licenseFormat
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.10'
+}

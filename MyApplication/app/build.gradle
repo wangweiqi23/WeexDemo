@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion parent.ext.compileSdkVersion
+    buildToolsVersion parent.ext.buildToolsVersion
+
+    defaultConfig {
+        applicationId parent.ext.applicationId
+        minSdkVersion parent.ext.minSdkVersion
+        targetSdkVersion parent.ext.targetSdkVersion
+        versionCode parent.ext.versionCode
+        versionName parent.ext.versionName
+
+        ndk {
+            abiFilters "armeabi"
+        }
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+        ignoreWarnings true
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':weex_sdk')
+
+    compile parent.ext.libRetrofit
+    compile parent.ext.libRetrofitGsonConverter
+    compile parent.ext.libOkHttp3LogInterceptor
+    compile parent.ext.libIo
+
+    compile parent.ext.libV7
+    compile parent.ext.libDesign
+    compile parent.ext.libRecyclerview
+    compile parent.ext.libEventBus
+    compile parent.ext.libCardView
+    compile parent.ext.libGridLayout
+    compile parent.ext.libGson
+    compile parent.ext.libIo
+    compile parent.ext.libRecyclerViewAnimator
+    compile parent.ext.libGridLayout
+    compile parent.ext.libProgress
+    compile parent.ext.libFresco
+    compile parent.ext.libFrescoOkHttp
+}

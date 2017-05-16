@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AvatarLevelView">
+        <attr name="avatar_border_width" format="dimension"/>
+        <attr name="avatar_border_color" format="color"/>
+        <attr name="avatar_border_overlay" format="boolean"/>
+        <attr name="avatar_fill_color" format="color"/>
+        <attr name="level_width" format="dimension"/>
+        <attr name="level_height" format="dimension"/>
+        <attr name="avatar_header_width" format="dimension"/>
+        <attr name="avatar_header_height" format="dimension"/>
+        <attr name="avatar_default_view" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="AvatarLevelViewBoard">
+
+    </declare-styleable>
+
+
+    <declare-styleable name="MainNavigateTabBar">
+        <attr name="navigateTabTextColor" format="color|reference"/>
+        <attr name="navigateTabSelectedTextColor" format="color|reference"/>
+        <attr name="containerId" format="integer|reference"/>
+        <attr name="navigateTabTextSize" format="dimension|reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="BubbleView">
+        <attr name="arrowWidth" format="dimension"/>
+        <attr name="angle" format="dimension"/>
+        <attr name="arrowHeight" format="dimension"/>
+        <attr name="arrowPosition" format="dimension"/>
+        <attr name="bubbleColor" format="color"/>
+        <attr name="arrowLocation" format="enum">
+            <enum name="left" value="0x00"/>
+            <enum name="right" value="0x01"/>
+            <enum name="top" value="0x02"/>
+            <enum name="bottom" value="0x03"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SwitchButton">
+        <attr name="kswThumbDrawable" format="reference"/>
+        <attr name="kswThumbColor" format="color|reference"/>
+        <attr name="kswThumbMargin" format="dimension|reference"/>
+        <attr name="kswThumbMarginTop" format="dimension|reference"/>
+        <attr name="kswThumbMarginBottom" format="dimension|reference"/>
+        <attr name="kswThumbMarginLeft" format="dimension|reference"/>
+        <attr name="kswThumbMarginRight" format="dimension|reference"/>
+        <attr name="kswThumbWidth" format="dimension|reference"/>
+        <attr name="kswThumbHeight" format="dimension|reference"/>
+        <attr name="kswThumbRadius" format="dimension|reference"/>
+        <attr name="kswBackRadius" format="dimension|reference"/>
+        <attr name="kswBackDrawable" format="reference"/>
+        <attr name="kswBackColor" format="color|reference"/>
+        <attr name="kswFadeBack" format="boolean"/>
+        <attr name="kswBackMeasureRatio" format="float"/>
+        <attr name="kswAnimationDuration" format="integer"/>
+        <attr name="kswTintColor" format="color|reference"/>
+        <attr name="kswTextOn" format="string"/>
+        <attr name="kswTextOff" format="string"/>
+        <attr name="kswTextMarginH" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension"/>
+        <attr name="civ_border_color" format="color"/>
+        <attr name="civ_border_overlay" format="boolean"/>
+        <attr name="civ_fill_color" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="KPSwitchPanelLayout">
+        <attr name="ignore_recommend_height" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="BorderTextView">
+        <attr name="border_width" format="dimension"/>
+        <attr name="border_color" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="SmoothCheckBox">
+        <attr name="duration" format="integer"/>
+        <attr name="stroke_width" format="dimension"/>
+        <attr name="color_tick" format="color"/>
+        <attr name="color_checked" format="color"/>
+        <attr name="color_unchecked" format="color"/>
+        <attr name="color_unchecked_stroke" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="MovingGradientTextView">
+        <attr name="main_color" format="color"/>
+        <attr name="sub_color" format="color"/>
+    </declare-styleable>
+
+    <!-- circular cover view -->
+    <declare-styleable name="CircularCoverView">
+        <attr name="left_top_radius" format="dimension"/>
+        <attr name="left_bottom_radius" format="dimension"/>
+        <attr name="right_top_radius" format="dimension"/>
+        <attr name="right_bottom_radius" format="dimension"/>
+        <attr name="cover_color" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="ThumbUpView">
+        <attr name="edgeColor" format="color|reference"/>
+        <attr name="fillColor" format="color|reference"/>
+        <attr name="cracksColor" format="color|reference"/>
+        <attr name="unlikeType" format="integer"/>
+    </declare-styleable>
+    <declare-styleable name="pickerview">
+        <attr name="pickerview_gravity">
+            <enum name="center" value="17"/>
+            <enum name="left" value="3"/>
+            <enum name="right" value="5"/>
+        </attr>
+        <attr name="pickerview_textSize" format="dimension"/>
+        <attr name="pickerview_textColorOut" format="color"/>
+        <attr name="pickerview_textColorCenter" format="color"/>
+        <attr name="pickerview_dividerColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="AnimShopButton">
+        <!--加按钮是否开启fill模式 默认是stroke(false)-->
+        <attr name="isAddFillMode" format="boolean"/>
+        <!--加按钮的背景色前景色-->
+        <attr name="addEnableBgColor" format="color"/>
+        <attr name="addEnableFgColor" format="color"/>
+        <!--加按钮不可用时的背景色前景色-->
+        <attr name="addDisableBgColor" format="color"/>
+        <attr name="addDisableFgColor" format="color"/>
+
+        <!--减按钮是否开启fill模式 默认是stroke(false)-->
+        <attr name="isDelFillMode" format="boolean"/>
+        <!--减按钮的背景色前景色-->
+        <attr name="delEnableBgColor" format="color"/>
+        <attr name="delEnableFgColor" format="color"/>
+        <!--减按钮不可用时的背景色前景色-->
+        <attr name="delDisableBgColor" format="color"/>
+        <attr name="delDisableFgColor" format="color"/>
+
+        <!--圆的半径-->
+        <attr name="radius" format="dimension"/>
+        <!--圆圈的宽度-->
+        <attr name="circleStrokeWidth" format="dimension"/>
+        <!--线(+ - 符号)的宽度-->
+        <attr name="lineWidth" format="dimension"/>
+
+        <!--两个圆之间的间距-->
+        <attr name="gapBetweenCircle" format="dimension"/>
+        <!--绘制数量的textSize-->
+        <attr name="numTextSize" format="dimension"/>
+        <!--最大数量和当前数量-->
+        <attr name="maxCount" format="integer"/>
+        <attr name="count" format="integer"/>
+        <attr name="minCount" format="integer"/>
+        <attr name="delta" format="integer"/>
+        <attr name="unit" format="string"/>
+
+        <!-- 增加一个开关 ignoreHintArea：UI显示、动画是否忽略hint收缩区域-->
+        <attr name="ignoreHintArea" format="boolean"/>
+
+        <!--数量为0时，hint文字 背景色前景色 大小,圆角值-->
+        <attr name="hintText" format="string"/>
+        <attr name="hintBgColor" format="color"/>
+        <attr name="hintFgColor" format="color"/>
+        <attr name="hingTextSize" format="dimension"/>
+        <attr name="hintBgRoundValue" format="dimension"/>
+
+        <attr name="perAnimDuration" format="integer"/>
+
+        <!--in replenish -->
+        <attr name="replenishTextColor" format="color"/>
+        <attr name="replenishTextSize" format="dimension"/>
+        <attr name="replenishText" format="string"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="PlusMinusBtn">
+        <attr name="btnSize" format="dimension"/>
+        <attr name="textColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="gapSize" format="dimension"/>
+        <attr name="maxNum" format="integer|float"/>
+        <attr name="num" format="integer|float"/>
+        <attr name="minNum" format="integer|float"/>
+        <attr name="deltaNum" format="integer|float"/>
+        <attr name="label" format="string"/>
+    </declare-styleable>
+</resources>

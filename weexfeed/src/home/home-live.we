@@ -1,0 +1,98 @@
+<!-- 首页 -->
+<template>
+	<div class="root">
+    <page-item id="pageItem" class="page-item" style="height:{{titleHeight}};" pages="{{sliderPages}}"></page-item>
+    <slider style="width:750;height:{{channelHeight}};" looptype="false" index="{{currentIndex}}" auto-play="false" onchange="onChange">
+      <home-live-page style="width:750;height:{{channelHeight}};" repeat="{{sliderPages}}"></home-live-page>
+    </slider>
+  </div>  
+</template>
+
+<script>
+  require('weex-components');
+  require('./view/page-item.we');
+  require('./view/home-live-page.we');
+  var globalEvent = require('@weex-module/globalEvent');
+  module.exports = {
+    data: {
+      sHeight: '',
+      titleHeight: 80,
+      channelHeight: '',
+      currentIndex: 0,
+      sliderPages: [
+        {
+          index: 0,
+          title: '热门',
+          flag:''
+        },
+        {
+          index: 1,
+          title: '生活',
+          flag:'2'
+        },    
+        {
+          index: 2,
+          title: '财富',
+          flag:'1'
+        }
+      ]
+    },
+    created: function() {
+      var self = this;
+      var config = this.$getConfig();
+      var screenHeight = this.$getConfig().env.deviceHeight;
+      var contentHeight = this.$getConfig().contentHeight;
+      if(contentHeight > 0){
+        this.sHeight = 750 / config.env.deviceWidth * contentHeight;
+        this.channelHeight = this.sHeight - this.titleHeight;
+      }else{
+        this.sHeight = 750 / config.env.deviceWidth * config.env.deviceHeight;
+        this.channelHeight = this.sHeight - this.titleHeight;
+      }
+
+      this.$on('pageItemClick', function(e) {
+        this.currentIndex = e.detail.index;
+      });
+
+      globalEvent.addEventListener("setCurrentIndex", function (ret) {
+        console.log("get setCurrentIndex index:"+ret.index)
+        if(ret.index != self.currentIndex){
+          self.currentIndex = ret.index;
+          var pageItem = self.$vm('pageItem');
+          pageItem.channelChange(self.currentIndex);
+        }
+      });
+
+      console.log("home-live created height:"+this.sHeight+"  screenHeight:"+screenHeight+"contentHeight:"+contentHeight);
+    },
+    destroyed: function () {
+      console.log("home-live destroyed")
+      globalEvent.removeEventListener("setCurrentIndex");
+    },
+    methods: {
+      onChange: function(e) {
+        if(this.currentIndex != e.index){
+          this.currentIndex = e.index;
+          var pageItem = this.$vm('pageItem');
+          pageItem.channelChange(this.currentIndex);
+        }
+      }
+    }
+  };
+</script>
+
+<style>
+  .root {
+    align-items: center;
+  }
+  .page-item {
+    width: 750;
+    justify-content: center;
+    background-color: #ffffff;
+  }
+  .title-right {
+    width: 150;
+    text-align:center;
+    font-size: 32;
+  }
+</style>
