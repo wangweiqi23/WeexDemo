@@ -2,7 +2,7 @@
 
 Demo when we learn weex
 
-![photo](https://github.com/wangweiqi23/WeexDemo/blob/master/photo/page.png)
+
 
 ## Directory Description:
 
