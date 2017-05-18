@@ -2,7 +2,7 @@
 
 Demo when we learn weex
 
-
+![Alt text](https://github.com/wangweiqi23/WeexDemo/blob/master/photo/page1.jpg)     ![Alt text](https://github.com/wangweiqi23/WeexDemo/blob/master/photo/page2.jpg)
 
 ## Directory Description:
 
