@@ -24,6 +24,7 @@ MyApplication 中weexSDk是 0.10.0的基础上做了修改
 Fresco图片加载、okHttp的网络请求、viewpager效果实现、js与native交互等等
 
 ## 支持：
-参考Android工程 [MyApplication](https://github.com/wangweiqi23/WeexDemo/tree/master/MyApplication)                 
+[我的技术博客](http://www.jianshu.com/u/884c2e4b6e38)  
+参考Android工程 [MyApplication](https://github.com/wangweiqi23/WeexDemo/tree/master/MyApplication)                 
 更多参考 移步 [wiki](https://github.com/wangweiqi23/WeexDemo/wiki)                 
 提 issues吧                      
