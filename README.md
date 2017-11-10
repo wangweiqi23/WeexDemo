@@ -25,6 +25,4 @@ Fresco图片加载、okHttp的网络请求、viewpager效果实现、js与native
 
 ## 支持：
 [我的技术博客](http://www.jianshu.com/u/884c2e4b6e38)  
-参考Android工程 [MyApplication](https://github.com/wangweiqi23/WeexDemo/tree/master/MyApplication)                 
-更多参考 移步 [wiki](https://github.com/wangweiqi23/WeexDemo/wiki)                 
-提 issues吧                      
+参考Android工程 [MyApplication](https://github.com/wangweiqi23/WeexDemo/tree/master/MyApplication) 或者移步 [wiki](https://github.com/wangweiqi23/WeexDemo/wiki) 还有提 issues吧                      
